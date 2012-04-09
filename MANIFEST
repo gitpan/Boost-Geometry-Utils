@@ -3,7 +3,6 @@ CHANGES
 LICENSE
 MANIFEST
 META.yml
-Makefile.PL
 README
 is
 lib/Boost/Geometry/Utils.pm

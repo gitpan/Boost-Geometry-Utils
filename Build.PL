@@ -10,7 +10,6 @@ my $build = Module::Build::WithXSpp->new(
     'Test::More' => '0'
   },
   'configure_requires' => {
-    'ExtUtils::MakeMaker' => '6.30',
     'Module::Build' => '0.3601'
   },
   # HAS_BOOL         : stops Perl/lib/CORE/handy.h from doing "#  define bool char" for MSVC
