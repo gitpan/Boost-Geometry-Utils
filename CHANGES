@@ -1,0 +1,39 @@
+==================================================
+Changes from 2011-04-10 00:00:00 +0000 to present.
+==================================================
+
+-----------------------------------------
+version 0.02 at 2012-04-09 09:11:30 +0000
+-----------------------------------------
+
+  Change: b41fe3fe2efcb7bf3dc78dcc92cd1ec29791d347
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-04-09 11:11:10 +0000
+
+    Commit missing files 
+
+  Change: 8d1a6bb587509e1623ba53d00d9da2f5f1bea47c
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-04-09 10:32:37 +0000
+
+    Document undocumented methods 
+
+-----------------------------------------
+version 0.01 at 2012-04-09 08:14:32 +0000
+-----------------------------------------
+
+  Change: 782140226923923bca9a429ce120ebe7ebf6fa38
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-04-09 10:14:32 +0000
+
+    More changes 
+
+  Change: a7c5fb071f614c8ce46b97c5db826303bae8b733
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-04-09 00:20:51 +0000
+
+    Initial commit 
+
+================
+End of releases.
+================
