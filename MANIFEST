@@ -4,7 +4,6 @@ LICENSE
 MANIFEST
 META.yml
 README
-is
 lib/Boost/Geometry/Utils.pm
 src/boost/algorithm/minmax.hpp
 src/boost/algorithm/minmax_element.hpp

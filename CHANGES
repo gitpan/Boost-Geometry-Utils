@@ -3,8 +3,37 @@ Changes from 2011-04-10 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.03 at 2012-04-09 12:29:59 +0000
+version 0.04 at 2012-04-09 19:52:22 +0000
 -----------------------------------------
+
+  Change: 3f86a958746db1b72bf49e12e042c87f226089c2
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-04-09 21:51:56 +0000
+
+    Put XSLoader::log() outside of BEGIN in order to allow for DZ to add
+    $VERSION 
+
+-----------------------------------------
+version 0.03 at 2012-04-09 19:41:18 +0000
+-----------------------------------------
+
+  Change: 1bdc8c6b368bb403f98a5b9b0b55821f133aff91
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-04-09 21:41:18 +0000
+
+    Remove $VERSION so that $Dist::Zilla manages it 
+
+  Change: 3563c5b03dc794210339f785f36cebb02eda22d0
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-04-09 21:36:55 +0000
+
+    Windows/MinGW compatibility 
+
+  Change: f61020399095897d9851b49b921f1b23a03502d8
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-04-09 14:44:21 +0000
+
+    Removed unused file from repository 
 
   Change: fa97f24271e153753c9191d1d21717c1b0307cf9
   Author: Alessandro Ranellucci <aar@cpan.org>

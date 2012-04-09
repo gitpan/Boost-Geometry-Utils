@@ -17,4 +17,4 @@ name: Boost-Geometry-Utils
 resources:
   bugtracker: https://github.com/alexrj/Boost-Geometry-Utils/issues
   repository: git://github.com/alexrj/Boost-Geometry-Utils.git
-version: 0.03
+version: 0.04

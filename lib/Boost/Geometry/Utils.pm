@@ -1,17 +1,16 @@
 package Boost::Geometry::Utils;
+{
+  $Boost::Geometry::Utils::VERSION = '0.04';
+}
 # ABSTRACT: Bindings for the Boost Geometry library
 use strict;
 use warnings;
 
 require Exporter;
 our @ISA = qw(Exporter);
-our $VERSION;
 
-BEGIN {
-    use XSLoader;
-    $VERSION = '0.01';
-    XSLoader::load('Boost::Geometry::Utils', $VERSION);
-}
+use XSLoader;
+XSLoader::load('Boost::Geometry::Utils', $Boost::Geometry::Utils::VERSION);
 
 our @EXPORT_OK = qw(polygon_to_wkt linestring_to_wkt wkt_to_multilinestring
     polygon linestring
@@ -56,7 +55,7 @@ Boost::Geometry::Utils - Bindings for the Boost Geometry library
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -127,6 +126,11 @@ Converts an arrayref of points to a WKT representation of a multilinestring.
 =head2 wkt_to_multilinestring
 
 Parses a MULTILINESTRING back to a Perl data structure.
+
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to mauke and mst (Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>)
+for their valuable help in getting this to compile under Windows (MinGW) too.
 
 =head1 AUTHOR
 
