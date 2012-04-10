@@ -6,11 +6,15 @@ my $build = Module::Build::WithXSpp->new(
   module_name     => 'Boost::Geometry::Utils',
   license         => 'perl',
     'build_requires' => {
+    'ExtUtils::Typemaps::Default' => '0.05',
+    'ExtUtils::XSpp' => '0.16',
     'Module::Build' => '0.3601',
     'Test::More' => '0'
   },
   'configure_requires' => {
-    'Module::Build' => '0.3601'
+    'ExtUtils::CppGuess' => '0.07',
+    'Module::Build' => '0.38',
+    'Module::Build::WithXSpp' => '0.10'
   },
   # HAS_BOOL         : stops Perl/lib/CORE/handy.h from doing "#  define bool char" for MSVC
   extra_compiler_flags => [qw(-DHAS_BOOL)],
