@@ -2911,10 +2911,16 @@ src/boost/utility/swap.hpp
 src/boost/utility/typed_in_place_factory.hpp
 src/boost/utility/value_init.hpp
 src/boost/version.hpp
+src/line2av.h
+src/mline2av.h
 src/myinit.h
+src/point2av.h
+src/poly2av.h
 src/ppport.h
 t/00-compile.t
 t/01_basic.t
+t/02_old_api.t
+t/03_polygon.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
 xsp/Utils.xsp

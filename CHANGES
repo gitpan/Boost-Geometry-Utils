@@ -1,9 +1,154 @@
 ==================================================
-Changes from 2011-04-11 00:00:00 +0000 to present.
+Changes from 2012-01-28 00:00:00 +0000 to present.
 ==================================================
 
 -----------------------------------------
-version 0.05 at 2012-04-10 08:52:09 +0000
+version 0.06 at 2013-01-27 23:25:27 +0000
+-----------------------------------------
+
+  Change: 29af743cedd602af65deecf056b59ac0c909282a
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2013-01-28 00:25:03 +0000
+
+    Update POD 
+
+  Change: 58736a034fb398d7e4f6a00b975a14ce2d122d7a
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2013-01-27 23:58:02 +0000
+
+    Fixed arrayref to polygon conversion and added unit test 
+
+  Change: 885c60668125cd281b7783baf7dc69951e0d0f2e
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2013-01-27 16:30:38 +0000
+
+    Finished polygon2perl() and added unit test for conversion roundtrip 
+
+  Change: 1df409ec73fb4de93db234f9634399c64aba0314
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2013-01-27 15:08:11 +0000
+
+    Update copyright year 
+
+  Change: 0a0b9442fb84af318e888a0064da6f54474fc9ae
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2013-01-27 15:07:56 +0000
+
+    Added a couple conversion methods to help debugging 
+
+  Change: c3fc121bf240a9b15b69d356b4ffc8088ed52609
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-11-01 17:18:17 +0000
+
+    Use integers instead of doubles and fix test to use integers. 
+
+  Change: 71ce53ba110bea82bb32c63e8aef82719bcbea80
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-10 22:28:25 +0000
+
+    Convert polygon() and linestring() functions to use non-wkt
+    conversion. 
+
+  Change: f95918786093c58de80ab62c0f47355c668fb48e
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-08 11:41:27 +0000
+
+    Attempt to fix/workaround leaking memory. 
+
+  Change: fec904e6630837aef63260b5bdde034b6d570ae5
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-08 08:30:55 +0000
+
+    Remove pointless reference to boost::geometry::append. 
+
+  Change: e917ff4dbc3eeaa3e2e51cacb0dad649712310d1
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-08 07:50:09 +0000
+
+    Add point_covered_by_polygon and add tests to cover "edge" cases. 
+
+  Change: 259eed2f7952443be651f87d50772181a363c105
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-07 23:40:35 +0000
+
+    Add point_within_polygon and linestring_simplify functions and tests.
+
+    There is a bug in point_within_polygon triggered by:
+
+    point_within_polygon($point_in_hole, [$hole_in_square,[]])
+
+    which I've avoided by changing the test. This needs fixing. 
+
+  Change: d93104e6ebb7ed61f6dca2bd660aca10e6343783
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-07 22:38:18 +0000
+
+    Fix typo that accidentally worked. 
+
+  Change: ffd640666a4dfc64eaa481e701e5fa10456a0b03
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-07 22:19:50 +0000
+
+    Trivial whitespace change. 
+
+  Change: 07b52f3ca576db64b4488630b5234e18e7687b84
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-07 22:19:17 +0000
+
+    Put back 64-bit int support. 
+
+  Change: ce6abfcd8966a3873b5f8c0469f56ac34183bfa8
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-07 22:06:13 +0000
+
+    Support old API and new polygon_multi_linestring_intersection
+    function.
+
+    Old API is the same as before but the new version does the return
+    value conversion using the new XS code path rather than the old wkt
+    code. 
+
+  Change: a36005753777bbe951050c1c6f6b1fdb289063ab
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-07 20:55:10 +0000
+
+    Refactor add_outer and add_hole to single add_ring function. 
+
+  Change: 3813ed19a4aae58ccaa3b4b2c1aeb58e68aea791
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-07 20:30:56 +0000
+
+    Remove some debug and add macros to simplify code. 
+
+  Change: ab1b86acb5ce159af54e23c58aed54768ef0ed31
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-07 18:09:58 +0000
+
+    Implement boost to perl conversion for multi_linestring. 
+
+  Change: 9808ba60cc64a6dbaddde6e98493e5c8ea7cf5b9
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-06 23:11:15 +0000
+
+    Convert perl to multi_linestring. 
+
+  Change: 641f20262b6a0fa246b525f3f1639062bc71473a
+  Author: Mark Hindess <soft-github@temporalanomaly.com>
+  Date : 2012-07-06 19:14:09 +0000
+
+    Fix perl to boost polygon conversion.
+
+    Lots of debug left in and lots of cleanup to do but it works. 
+
+  Change: d98d2ecd5377635b1c29e947d7e44a82550ac634
+  Author: Alessandro Ranellucci <aar@cpan.org>
+  Date : 2012-07-03 19:10:28 +0000
+
+    Unfinished draft for avoiding the WKT roundtrip and having XS work
+    directly on Perl data structures 
+
+-----------------------------------------
+version 0.05 at 2012-04-10 08:39:45 +0000
 -----------------------------------------
 
   Change: 680789acf635cfcbdfd5a8c23de5ca99a7ec8680

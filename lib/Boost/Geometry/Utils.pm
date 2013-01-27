@@ -1,6 +1,6 @@
 package Boost::Geometry::Utils;
 {
-  $Boost::Geometry::Utils::VERSION = '0.05';
+  $Boost::Geometry::Utils::VERSION = '0.06';
 }
 # ABSTRACT: Bindings for the Boost Geometry library
 use strict;
@@ -13,8 +13,9 @@ use XSLoader;
 XSLoader::load('Boost::Geometry::Utils', $Boost::Geometry::Utils::VERSION);
 
 our @EXPORT_OK = qw(polygon_to_wkt linestring_to_wkt wkt_to_multilinestring
-    polygon linestring
-    polygon_linestring_intersection);
+    polygon linestring polygon_linestring_intersection
+    polygon_multi_linestring_intersection
+    point_within_polygon point_covered_by_polygon linestring_simplify);
 
 sub polygon_to_wkt {
     sprintf 'POLYGON(%s)', join ',', map { sprintf '(%s)', join ',', map { join ' ', @$_ } @$_ } @_;
@@ -32,15 +33,15 @@ sub wkt_to_multilinestring {
 }
 
 sub polygon {
-    _read_wkt_polygon(polygon_to_wkt(@_));
+    _polygon(\@_);
 }
 
 sub linestring {
-    _read_wkt_linestring(linestring_to_wkt(@_));
+    _multi_linestring(\@_)
 }
 
-sub polygon_linestring_intersection {
-    wkt_to_multilinestring(_multilinestring_to_wkt(_polygon_linestring_intersection(@_)));
+sub multi_linestring {
+    _multi_linestring(\@_)
 }
 
 1;
@@ -55,7 +56,7 @@ Boost::Geometry::Utils - Bindings for the Boost Geometry library
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 SYNOPSIS
 
@@ -107,12 +108,21 @@ with holes.
 
 Converts an arrayref of points to a Boost Geometry linestring.
 
+=head2 multi_linestring
+
+Converts an arrayref of arrayrefs of points to a Boost Geometry multilinestring.
+
 =head2 polygon_linestring_intersection
 
 Performs an intersection between the supplied polygon and linestring,
 and returns an arrayref of linestrings (represented as arrayrefs of
 points).
 Note that such an intersection is also called I<clipping>.
+
+=head2 polygon_multi_linestring_intersection
+
+Same as I<polygon_linestring_intersection> but it accepts a multilinestring
+object to perform multiple clippings in a single batch.
 
 =head2 polygon_to_wkt
 
@@ -127,10 +137,26 @@ Converts an arrayref of points to a WKT representation of a multilinestring.
 
 Parses a MULTILINESTRING back to a Perl data structure.
 
+=head2 linestring_simplify
+
+Accepts an arrayref of points representing a linestring and a numeric tolerance 
+and returns an arrayref of points representing the simplified linestring.
+
+=head2 point_covered_by_polygon
+
+Accepts a point and an arrayref of points representing a polygon and returns true 
+or false according to the 'cover_by' strategy.
+
+=head2 point_within_polygon
+
+Accepts a point and an arrayref of points representing a polygon and returns true 
+or false according to the 'within' strategy.
+
 =head1 ACKNOWLEDGEMENTS
 
 Thanks to mauke and mst (Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>)
 for their valuable help in getting this to compile under Windows (MinGW) too.
+Thanks to Mark Hindness for his work on data types conversion.
 
 =head1 AUTHOR
 
@@ -138,7 +164,7 @@ Alessandro Ranellucci <aar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Alessandro Ranellucci.
+This software is copyright (c) 2013 by Alessandro Ranellucci.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
