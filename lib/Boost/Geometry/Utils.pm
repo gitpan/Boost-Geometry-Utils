@@ -1,6 +1,6 @@
 package Boost::Geometry::Utils;
 {
-  $Boost::Geometry::Utils::VERSION = '0.06';
+  $Boost::Geometry::Utils::VERSION = '0.07';
 }
 # ABSTRACT: Bindings for the Boost Geometry library
 use strict;
@@ -14,8 +14,11 @@ XSLoader::load('Boost::Geometry::Utils', $Boost::Geometry::Utils::VERSION);
 
 our @EXPORT_OK = qw(polygon_to_wkt linestring_to_wkt wkt_to_multilinestring
     polygon linestring polygon_linestring_intersection
-    polygon_multi_linestring_intersection
-    point_within_polygon point_covered_by_polygon linestring_simplify);
+    polygon_multi_linestring_intersection multi_polygon_multi_linestring_intersection
+    point_within_polygon point_covered_by_polygon linestring_simplify
+    multi_linestring_simplify linestring_length polygon_centroid
+    linestring_centroid multi_linestring_centroid multi_polygon
+    correct_polygon correct_multi_polygon);
 
 sub polygon_to_wkt {
     sprintf 'POLYGON(%s)', join ',', map { sprintf '(%s)', join ',', map { join ' ', @$_ } @$_ } @_;
@@ -34,6 +37,10 @@ sub wkt_to_multilinestring {
 
 sub polygon {
     _polygon(\@_);
+}
+
+sub multi_polygon {
+    _multi_polygon(\@_);
 }
 
 sub linestring {
@@ -56,7 +63,7 @@ Boost::Geometry::Utils - Bindings for the Boost Geometry library
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =head1 SYNOPSIS
 
@@ -98,20 +105,6 @@ B<Warning:> the API could change in the future.
 
 =head1 METHODS
 
-=head2 polygon
-
-Converts one or more arrayref(s) of points to a Boost Geometry polygon 
-structure. Note that a Boost Geometry polygon is actually a polygon
-with holes.
-
-=head2 linestring
-
-Converts an arrayref of points to a Boost Geometry linestring.
-
-=head2 multi_linestring
-
-Converts an arrayref of arrayrefs of points to a Boost Geometry multilinestring.
-
 =head2 polygon_linestring_intersection
 
 Performs an intersection between the supplied polygon and linestring,
@@ -122,6 +115,11 @@ Note that such an intersection is also called I<clipping>.
 =head2 polygon_multi_linestring_intersection
 
 Same as I<polygon_linestring_intersection> but it accepts a multilinestring
+object to perform multiple clippings in a single batch.
+
+=head2 multi_polygon_multi_linestring_intersection
+
+Same as I<polygon_multi_linestring_intersection> but it accepts a multipolygon
 object to perform multiple clippings in a single batch.
 
 =head2 polygon_to_wkt
@@ -142,6 +140,12 @@ Parses a MULTILINESTRING back to a Perl data structure.
 Accepts an arrayref of points representing a linestring and a numeric tolerance 
 and returns an arrayref of points representing the simplified linestring.
 
+=head2 multi_linestring_simplify
+
+Accepts an arrayref of arrayrefs of points representing a multilinestring and a 
+numeric tolerance and returns an arrayref of arrayrefs of points representing 
+the simplified linestrings.
+
 =head2 point_covered_by_polygon
 
 Accepts a point and an arrayref of points representing a polygon and returns true 
@@ -151,6 +155,32 @@ or false according to the 'cover_by' strategy.
 
 Accepts a point and an arrayref of points representing a polygon and returns true 
 or false according to the 'within' strategy.
+
+=head2 linestring_length
+
+Returns length of a linestring.
+
+=head2 polygon_centroid
+
+Returns the centroid point of a given polygon.
+
+=head2 linestring_centroid
+
+Returns the centroid point of a given linestring.
+
+=head2 multi_linestring_centroid
+
+Returns the centroid point of a given multi_linestring.
+
+=head2 correct_polygon
+
+Corrects the orientation(s) of the given polygon.
+
+=head2 correct_multi_polygon
+
+Corrects the orientation(s) of the given multi_polygon.
+
+=for Pod::Coverage linestring multi_linestring multi_polygon polygon
 
 =head1 ACKNOWLEDGEMENTS
 

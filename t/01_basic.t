@@ -3,10 +3,14 @@
 use strict;
 use warnings;
 
-use Test::More tests => 16;
+use Test::More tests => 24;
 use Boost::Geometry::Utils qw(polygon_multi_linestring_intersection
+                              multi_polygon_multi_linestring_intersection
                               point_within_polygon point_covered_by_polygon
-                              linestring_simplify);
+                              linestring_simplify multi_linestring_simplify
+                              linestring_length polygon_centroid linestring_centroid
+                              multi_linestring_centroid correct_polygon
+                              correct_multi_polygon);
 
 {
     my $square = [  # ccw
@@ -40,12 +44,14 @@ use Boost::Geometry::Utils qw(polygon_multi_linestring_intersection
         is_deeply $intersection, [], 'external line produces no intersections';
     }
     {
-        my $intersection =
-            polygon_multi_linestring_intersection($polygon, $multilinestring);
-        is_deeply $intersection, [
+        my $expected = [
             [ [10, 15], [14, 15] ],
             [ [16, 15], [20, 15] ],
-        ], 'multiple linestring clipping';
+        ];
+        is_deeply polygon_multi_linestring_intersection($polygon, $multilinestring),
+            $expected, 'multiple linestring clipping';
+        is_deeply multi_polygon_multi_linestring_intersection([$polygon], $multilinestring),
+            $expected, 'multiple linestring clipping against multiple polygons';
     }
 
     {
@@ -79,11 +85,53 @@ use Boost::Geometry::Utils qw(polygon_multi_linestring_intersection
 
     {
         my $line = [[11, 11], [25, 21], [31, 31], [49, 11], [31, 19]];
-        my $simplified = linestring_simplify($line, 5);
-        is_deeply $simplified,
+        is_deeply linestring_simplify($line, 5),
             [ [11, 11], [31, 31], [49, 11], [31, 19] ],
             'linestring simplification';
+        is_deeply multi_linestring_simplify([$line], 5),
+            [[ [11, 11], [31, 31], [49, 11], [31, 19] ]],
+            'multi_linestring simplification';
     }
+
+    {
+        my $line = [[10, 10], [10, 20]];
+        is linestring_length($line), 10, 'linestring simplification';
+    }
+
+    {
+        my $square = [  # ccw
+            [10, 10],
+            [20, 10],
+            [20, 20],
+            [10, 20],
+        ];
+        is_deeply polygon_centroid([$square]), [15, 15], 'polygon_centroid';
+    }
+
+    {
+        my $line = [ [10, 10], [20, 10] ];
+        is_deeply linestring_centroid($line), [15, 10], 'linestring_centroid';
+        is_deeply multi_linestring_centroid([$line]), [15, 10], 'multi_linestring_centroid';
+    }
+}
+
+{
+    my $square = [  # cw
+        [10, 20],
+        [20, 20],
+        [20, 10],
+        [10, 10],
+    ];
+    my $hole_in_square = [  # cw
+        [14, 14],
+        [14, 16],
+        [16, 16],
+        [16, 14],
+    ];
+    my $polygon = [$square, $hole_in_square];
+    my $expected = [ [reverse @$square], $hole_in_square ];
+    is_deeply correct_polygon($polygon), $expected, 'correct_polygon';
+    is_deeply correct_multi_polygon([$polygon]), [$expected], 'correct_multi_polygon';
 }
 
 __END__

@@ -14,11 +14,27 @@ _polygon(my_polygon)
   OUTPUT:
     RETVAL
 
+omultipolygon*
+_multi_polygon(my_multi_polygon)
+    multi_polygon* my_multi_polygon
+  CODE:
+    RETVAL = my_multi_polygon;
+  OUTPUT:
+    RETVAL
+
 polygon*
 _polygon_arrayref(my_polygon)
     opolygon* my_polygon
   CODE:
     RETVAL = my_polygon;
+  OUTPUT:
+    RETVAL
+
+multi_polygon*
+_multi_polygon_arrayref(my_multi_polygon)
+    omultipolygon* my_multi_polygon
+  CODE:
+    RETVAL = my_multi_polygon;
   OUTPUT:
     RETVAL
 
@@ -90,6 +106,18 @@ polygon_multi_linestring_intersection(my_polygon, my_linestring)
   OUTPUT:
     RETVAL
 
+multi_linestring*
+multi_polygon_multi_linestring_intersection(my_multi_polygon, my_multi_linestring)
+    multi_polygon* my_multi_polygon
+    multi_linestring* my_multi_linestring
+  CODE:
+    RETVAL = new multi_linestring ();
+    boost::geometry::intersection(*my_multi_polygon, *my_multi_linestring, *RETVAL);
+    delete my_multi_polygon; // TODO: not sure if this is best place for this
+    delete my_multi_linestring; // TODO: not sure if this is best place for this
+  OUTPUT:
+    RETVAL
+
 int
 point_within_polygon(my_point_xy, my_polygon)
     point_xy* my_point_xy
@@ -120,6 +148,70 @@ linestring_simplify(my_linestring, tolerance)
     RETVAL = new linestring ();
     boost::geometry::simplify(*my_linestring, *RETVAL, tolerance);
     delete my_linestring; // TODO: not sure if this is best place for this
+  OUTPUT:
+    RETVAL
+
+multi_linestring*
+multi_linestring_simplify(my_multi_linestring, tolerance)
+    multi_linestring* my_multi_linestring
+    const double tolerance
+  CODE:
+    RETVAL = new multi_linestring ();
+    boost::geometry::simplify(*my_multi_linestring, *RETVAL, tolerance);
+    delete my_multi_linestring; // TODO: not sure if this is best place for this
+  OUTPUT:
+    RETVAL
+
+double
+linestring_length(my_linestring)
+    linestring* my_linestring
+  CODE:
+    RETVAL = boost::geometry::length(*my_linestring);
+  OUTPUT:
+    RETVAL
+
+point_xy*
+polygon_centroid(my_polygon)
+    polygon* my_polygon
+  CODE:
+    RETVAL = new point_xy ();
+    boost::geometry::centroid(*my_polygon, *RETVAL);
+  OUTPUT:
+    RETVAL
+
+point_xy*
+linestring_centroid(my_linestring)
+    linestring* my_linestring
+  CODE:
+    RETVAL = new point_xy ();
+    boost::geometry::centroid(*my_linestring, *RETVAL);
+  OUTPUT:
+    RETVAL
+
+point_xy*
+multi_linestring_centroid(my_multi_linestring)
+    multi_linestring* my_multi_linestring
+  CODE:
+    RETVAL = new point_xy ();
+    boost::geometry::centroid(*my_multi_linestring, *RETVAL);
+  OUTPUT:
+    RETVAL
+
+polygon*
+correct_polygon(my_polygon)
+    polygon* my_polygon
+  CODE:
+    boost::geometry::correct(*my_polygon);
+    RETVAL = my_polygon;
+  OUTPUT:
+    RETVAL
+
+multi_polygon*
+correct_multi_polygon(my_multi_polygon)
+    multi_polygon* my_multi_polygon
+  CODE:
+    boost::geometry::correct(*my_multi_polygon);
+    RETVAL = my_multi_polygon;
   OUTPUT:
     RETVAL
 
