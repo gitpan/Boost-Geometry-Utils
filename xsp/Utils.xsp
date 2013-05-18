@@ -95,14 +95,14 @@ _multilinestring_to_wkt(mls)
     RETVAL
 
 multi_linestring*
-polygon_multi_linestring_intersection(my_polygon, my_linestring)
+polygon_multi_linestring_intersection(my_polygon, my_multi_linestring)
     polygon* my_polygon
-    multi_linestring* my_linestring
+    multi_linestring* my_multi_linestring
   CODE:
     RETVAL = new multi_linestring ();
-    boost::geometry::intersection(*my_polygon, *my_linestring, *RETVAL);
+    boost::geometry::intersection(*my_polygon, *my_multi_linestring, *RETVAL);
     delete my_polygon; // TODO: not sure if this is best place for this
-    delete my_linestring; // TODO: not sure if this is best place for this
+    delete my_multi_linestring; // TODO: not sure if this is best place for this
   OUTPUT:
     RETVAL
 
@@ -115,6 +115,18 @@ multi_polygon_multi_linestring_intersection(my_multi_polygon, my_multi_linestrin
     boost::geometry::intersection(*my_multi_polygon, *my_multi_linestring, *RETVAL);
     delete my_multi_polygon; // TODO: not sure if this is best place for this
     delete my_multi_linestring; // TODO: not sure if this is best place for this
+  OUTPUT:
+    RETVAL
+
+multi_linestring*
+multi_linestring_multi_polygon_difference(my_multi_linestring, my_multi_polygon)
+    multi_linestring* my_multi_linestring
+    multi_polygon* my_multi_polygon
+  CODE:
+    RETVAL = new multi_linestring ();
+    boost::geometry::difference(*my_multi_linestring, *my_multi_polygon, *RETVAL);
+    delete my_multi_linestring; // TODO: not sure if this is best place for this
+    delete my_multi_polygon; // TODO: not sure if this is best place for this
   OUTPUT:
     RETVAL
 
@@ -215,4 +227,20 @@ correct_multi_polygon(my_multi_polygon)
   OUTPUT:
     RETVAL
 
+SV*
+polygon_medial_axis(my_polygon)
+    polygon* my_polygon
+  CODE:
+    boost::polygon::default_voronoi_builder builder;
+    boost::polygon::medial_axis<double> ma;
+    // TODO: a direct perl2segments typemap with 32 bit int bounds checking
+    builder_segments_from_ring(my_polygon->outer(), builder);
+    BOOST_FOREACH(ring r, my_polygon->inners()) { 
+      builder_segments_from_ring(r, builder);
+    }
+    delete my_polygon;
+    builder.construct(&ma);
+    RETVAL = medial_axis2perl(ma);
+  OUTPUT:
+    RETVAL
 %}
