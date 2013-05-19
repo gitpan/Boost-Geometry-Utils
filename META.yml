@@ -12,7 +12,7 @@ configure_requires:
   Module::Build: 0.38
   Module::Build::WithXSpp: 0.10
 dynamic_config: 1
-generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.120630'
+generated_by: 'Module::Build version 0.4003, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -21,7 +21,7 @@ name: Boost-Geometry-Utils
 provides:
   Boost::Geometry::Utils:
     file: lib/Boost/Geometry/Utils.pm
-    version: 0.11
+    version: 0.12
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.11
+version: 0.12
